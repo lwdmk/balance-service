@@ -32,7 +32,7 @@ class ResetHoldHandler extends BaseHandler
         $this->checkForHoldOperation($account, $parentTransaction);
 
         return $this->transactionsService->setStatus($transaction, Transaction::STATUS_PROCESSED)
-            && $this->balanceService->changeBalance($accountForIncome, ($parentTransaction->sum ))
-            && $this->balanceService->changeHold($accountForIncome, ($parentTransaction->sum * (-1)));
+            && $this->balanceService->changeBalance($account, ($parentTransaction->sum ))
+            && $this->balanceService->changeHold($account, ($parentTransaction->sum * (-1)));
     }
 }

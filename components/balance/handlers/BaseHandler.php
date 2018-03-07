@@ -57,7 +57,8 @@ abstract class BaseHandler extends BaseObject
                     $dbTransaction->rollBack();
                     return false;
                 }
-            } catch (\Exception $e) {
+            } catch (UserException $e) {
+                $dbTransaction->rollBack();
                 $this->processException($e, $transaction);
                 return false;
             }
@@ -82,7 +83,7 @@ abstract class BaseHandler extends BaseObject
     protected function processException(\Exception $e, Transaction &$transaction)
     {
         $transaction->lastErrors = $e->getMessage();
-        $transaction->update(false, ['lastErrors']);
+        $transaction->save(false, ['lastErrors']);
         $this->transactionsService->setStatus($transaction, Transaction::STATUS_ERRORS);
     }
 

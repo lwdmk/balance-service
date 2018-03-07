@@ -1,7 +1,7 @@
 <?php
 return [
     'container' => [
-        'singleton' => [
+        'singletons' => [
             \app\components\balance\services\BalanceService::class => [
                 'class' => \app\components\balance\services\BalanceService::class
             ],

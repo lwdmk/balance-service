@@ -43,7 +43,7 @@ class TransactionsService extends BaseObject
     public function setStatus(Transaction &$transaction, $newStatus)
     {
         $transaction->status = $newStatus;
-        return $transaction->save(false, ['newStatus']);
+        return $transaction->save(false, ['status']);
     }
 
     /**
@@ -57,13 +57,12 @@ class TransactionsService extends BaseObject
     {
         /** @var TransactionJob $transactionJob */
         $transactionJob = \Yii::createObject(TransactionJob::class);
-        $transactionJob->setAttributes([
-            'type'         => $message->type,
-            'from_account' => $message->from_account,
-            'to_account'   => $message->to_account,
-            'sum'          => $message->sum,
-            'comment'      => $message->comment,
-        ]);
+        $transactionJob->type = $message->type;
+        $transactionJob->from_account = $message->from_account;
+        $transactionJob->to_account = $message->to_account;
+        $transactionJob->sum = $message->sum;
+        $transactionJob->hold_transaction_id = $message->hold_transaction_id;
+        $transactionJob->comment = $message->comment;
 
         return $transactionJob;
 

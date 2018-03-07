@@ -1,6 +1,7 @@
 <?php
 namespace app\commands;
 
+use app\components\balance\models\Transaction;
 use app\jobs\BalanceOperationJob;
 use yii\console\Controller;
 
@@ -20,9 +21,10 @@ class TestController extends Controller
     public function actionIndex()
     {
         \Yii::$app->externalQueue->push(new BalanceOperationJob([
-            'sum'        => 45.5,
-            'type'       => 1,
-            'to_account' => 1
+            'sum'                 => 50,
+            'type'                => Transaction::TYPE_TRANSFER,
+            'from_account'        => 2,
+            'to_account'          => 1,
         ]));
     }
 }
