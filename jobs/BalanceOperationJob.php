@@ -68,7 +68,7 @@ class BalanceOperationJob extends Model implements \yii\queue\JobInterface
 
         if ($incomeMessage->validate()) {
 
-            if(null === \Yii::$app->internalQueuel->push($transactionsService->createJobFromMessage($incomeMessage))) {
+            if(null === \Yii::$app->internalQueue->push($transactionsService->createJobFromMessage($incomeMessage))) {
                 throw new UserException('Failed to sent transaction job in internal queue');
             }
         } else {
